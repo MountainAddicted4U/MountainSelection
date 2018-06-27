@@ -1,0 +1,104 @@
+﻿@Scripts.Render("~/bundles/mapselection")
+@Scripts.Render("~/bundles/markerclusterer")
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=@MvcApplication.GoogleApiKey&libraries=drawing"></script>
+
+@{
+    ViewBag.Title = "Mountain Selection";
+}
+
+<h2>Mountain Selection</h2>
+<div ng-app="mountainSelection">
+    <div id="mountain-selection" class="mountain-selection" ng-controller="mountainSelection">
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="map"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="view3d-container">
+                    <canvas width="298" height="298" id="view3d"></canvas>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <input type="radio" id="preview" name="view" ng-change="changeViewToPreview()" ng-model="view" value="preview" checked="checked"/><label for="preview">Preview</label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="radio" id="details" name="view" ng-change="changeViewToDetails()" ng-model="view" value="details" /><label for="details">Details</label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="radio" id="gcode" name="view" ng-change="changeViewToGCode()" ng-model="view" value="gcode"/><label for="gcode">GCode</label>
+                    </div>
+                </div>
+                <div id="edit-params" ng-show="currentMountain !== null">
+
+                    <div class="row">
+                        <div class="col-lg-4">NE</div>
+                        <div class="col-lg-4">{{currentMountain.neLat | number : 8}}</div>
+                        <div class="col-lg-4">{{currentMountain.neLng | number : 8}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">SW</div>
+                        <div class="col-lg-4">{{currentMountain.swLat | number : 8}}</div>
+                        <div class="col-lg-4">{{currentMountain.swLng | number : 8}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="edit-mountain-title">Title</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" id="edit-mountain-title" ng-model="currentMountain.title" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="edit-mountain-description">Description</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <textarea rows="3" id="edit-mountain-description" ng-model="currentMountain.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="edit-mountain-preview-x">
+                                Preview
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" id="edit-mountain-preview-x" ng-model="currentMountain.preview.x" />
+                        </div>
+                        <div class="col-lg-1">X</div>
+                        <div class="col-lg-4">
+                            <input type="text" id="edit-mountain-preview-y" ng-model="currentMountain.preview.y"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="edit-mountain-resolution-x">
+                                Resolution
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" id="edit-mountain-resolution-x" ng-model="currentMountain.resolution.x" />
+                        </div>
+                        <div class="col-lg-1">X</div>
+                        <div class="col-lg-4">
+                            <input type="text" id="edit-mountain-resolution-y" ng-model="currentMountain.resolution.y" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button ng-click="preview()">Preview</button>
+                            <button ng-click="requestHeights()">Request Heights</button>
+                            <button ng-click="generateGCode()">Generate Gcode</button>
+                        </div>
+                    </div>
+                    <div class="row command-row">
+                        <div class="col-lg-12"><button ng-click="save()">Save</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,54 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#map { 
+    height: 500px;
+    background-color: lightgray;
+}
+
+#view3d-container{
+    border: 1px solid black;
+    height: 300px; 
+    width: 300px;
+}
+#view3d{
+    /*background-color:gray;*/
+}
+
+#params{
+    height: 200px; 
+    background-color:darkgray;
+}
+
+
+
+#edit-params input, .mountain-selection button {
+    width: 100%;
+}
+
+#edit-params .row{
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
